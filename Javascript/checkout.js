@@ -2,11 +2,11 @@ import{
   calculateCartQuantity,
   cart,
   removeFromCart, 
+  updateDeliveryOption, 
   updateQuantity
 } from '../data/cart.js';
 import {products} from  '../data/products.js';
 import formatCurrency from './utils/money.js';
-import {hello} from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js'
 import {deliveryOptions} from '../data/deliveryOption.js'
 
@@ -104,7 +104,9 @@ function deliveryOptionHTML (matchingProduct, cartItem) {
     const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
 
     html += `
-      <div class="delivery-option">
+      <div class="delivery-option js-delivery-option"
+        data-product-id = "${matchingProduct.id}"
+        data-delivery-option-id = "${deliveryOption.id}">
           <input type="radio"
             ${isChecked ? 'checked' : ''}
             class="delivery-option-input"
@@ -201,4 +203,13 @@ function saveQuantity (productId, quantityInput) {
     alert('Please type in a Quantity between 0 and 1000');
   }
   container.classList.remove('is-editing-quantity');
-}
+};
+
+document.querySelectorAll('.js-delivery-option')
+  .forEach((element) => {
+    element.addEventListener('click', () => {
+      const {productId, deliveryOptionId} = element.dataset;
+       updateDeliveryOption(productId, deliveryOptionId);
+      console.log(deliveryOptionId, 'This is the id');
+    });
+  })
