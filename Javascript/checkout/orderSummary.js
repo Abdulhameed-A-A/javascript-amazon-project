@@ -11,7 +11,7 @@ import {calculateDeliveryDate, deliveryOptions, getDeliveryOption} from '../../d
 import {renderPaymentSummary} from './paymentSummary.js';
 import {renderCheckoutHeader} from './checkoutHeader.js';
 
-export function renderOrderSummay () {
+export function renderOrderSummary () {
   let cartSummaryHTML = '';
 
   cart.forEach((cartItem) => {
@@ -22,7 +22,7 @@ export function renderOrderSummay () {
     const deliveryOptionId = cartItem.deliveryOptionId
 
     const deliveryOption = getDeliveryOption(deliveryOptionId);
-    const dateString = calculateDeliveryDate(deliveryOption,);
+    const dateString = calculateDeliveryDate(deliveryOption);
 
     cartSummaryHTML += `
       <div class="cart-item-container 
@@ -186,7 +186,7 @@ export function renderOrderSummay () {
       element.addEventListener('click', () => {
         const {productId, deliveryOptionId} = element.dataset;
         updateDeliveryOption(productId, deliveryOptionId);
-        renderOrderSummay();
+        renderOrderSummary();
         renderPaymentSummary();
       });
     })
