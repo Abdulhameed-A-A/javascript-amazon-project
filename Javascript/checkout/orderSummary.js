@@ -1,12 +1,11 @@
 import{
   cart,
-  removeFromCart, 
+  removeFromCart,
   updateDeliveryOption, 
   updateQuantity
 } from '../../data/cart.js';
 import {getProduct, products} from  '../../data/products.js';
-import formatCurrency from '../utils/money.js';
-//import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js'
+import {formatCurrency} from '../utils/money.js';
 import {calculateDeliveryDate, deliveryOptions, getDeliveryOption} from '../../data/deliveryOption.js'
 import {renderPaymentSummary} from './paymentSummary.js';
 import {renderCheckoutHeader} from './checkoutHeader.js';
@@ -41,7 +40,7 @@ export function renderOrderSummary () {
               ${matchingProduct.name}
             </div>
             <div class="product-price">
-              ${formatCurrency(matchingProduct.priceCents)}
+              ${matchingProduct.getPrice()}
             </div>
             <div class="product-quantity
               js-product-quantity-${matchingProduct}">
